@@ -1,12 +1,39 @@
 #include "sound.h"
 #include <stdio.h>
 #include <math.h>
-//
+
 void printID(char id[]){
 	int i;
 	for(i = 0; i < 4; i++)
 		printf("%c", id[i]);
 	printf("\n");
+}
+
+// function definition of dispWAVdata()
+void dispWAVdata(char filename[]){
+	int i, j; // loop counters
+	FILE *fp; // file handler to open the file "test.wav"
+	double rms[80], sum; // 80 pieces of RMS values
+	short samples[SAMPLERATE]; // total 16000 samples in 1 second
+	WAVheader mh; // used to skip over the header of the wav file
+	
+	fp = fopen(filename, "r");
+	if(fp == NULL){
+		printf("Error when opening the file.");		
+		return;
+	}
+	fread(&mh, sizeof(mh), 1, fp);
+	fread(samples, sizeof(short), SAMPLERATE, fp);
+	fclose(fp);
+	
+	for(i = 0, sum = 0; i < 80; i++){
+		for(j = 0; j < SAMPLERATE/80; j++){
+			int index = i*SAMPLERATE/80 + j;
+			sum += samples[index]*samples[index];
+		}
+		rms[i] = sqrt(sum/(SAMPLERATE/80));
+		printf("rms[%d]: %10.4f\n", i, rms[i]);
+	}
 }
 
 // function definition of dispWAVheader()
