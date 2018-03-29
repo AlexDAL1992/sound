@@ -1,3 +1,4 @@
+//#define DEBUG	// conditional compiling
 // constant definition
 #define SAMPLERATE 16000
 
@@ -13,7 +14,7 @@ typedef struct{
 	unsigned int sampleRate;
 	unsigned int byteRate;
 	unsigned short blockAlign;
-	unsigned  short bitsPerSample;
+	unsigned short bitsPerSample;
 	char subchunk2ID[4];
 	unsigned int subchunk2Size;
 	
