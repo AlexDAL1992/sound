@@ -28,13 +28,11 @@ void dispWAVdata(char filename[]){
 	fclose(fp);
 	
 	clearScreen();
-	int index;
-	for(i = 0, sum = 0; i < 80; i++){
-		for(j = 0; j < SAMPLERATE/80; j++){
-			index = i*SAMPLERATE/80 + j;
-			sum += samples[index]*samples[index];
-		}
-		rms[i] = sqrt(sum/(SAMPLERATE/80));
+	for(i = 0; i < 80; i++){
+		for(j = 0, sum = 0.0; j < 200; j++){
+			sum += samples[i*200+j]*samples[i*200+j];
+		}	
+		rms[i] = sqrt(sum/200);
 #ifdef DEBUG
 		printf("rms[%d]: %10.4f, dB = %10.4f\n", i, rms[i], 20*log10(rms[i]));
 #else
