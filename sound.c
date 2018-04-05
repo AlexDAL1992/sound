@@ -1,3 +1,4 @@
+#include "comm.h"
 #include "sound.h"
 #include "screen.h"
 #include <stdio.h>
@@ -17,21 +18,21 @@ void dispWAVdata(char filename[]){
 	double rms[80], sum; // 80 pieces of RMS values
 	short samples[SAMPLERATE]; // total 16000 samples in 1 second
 	WAVheader mh; // used to skip over the header of the wav file
-	
+
 	fp = fopen(filename, "r");
 	if(fp == NULL){
-		printf("Error when opening the file.");		
+		printf("Error when opening the file.");
 		return;
 	}
 	fread(&mh, sizeof(mh), 1, fp);
 	fread(samples, sizeof(short), SAMPLERATE, fp);
 	fclose(fp);
-	
+
 	clearScreen();
 	for(i = 0; i < 80; i++){
 		for(j = 0, sum = 0.0; j < 200; j++){
 			sum += samples[i*200+j]*samples[i*200+j];
-		}	
+		}
 		rms[i] = sqrt(sum/200);
 #ifdef DEBUG
 		printf("rms[%d]: %10.4f, dB = %10.4f\n", i, rms[i], 20*log10(rms[i]));
@@ -39,13 +40,17 @@ void dispWAVdata(char filename[]){
 		dispBar(i, 20*log10(rms[i]));
 #endif
 	}
+
+#ifdef COMM
+	sendToServer(rms);
+#endif
 }
 
 // function definition of dispWAVheader()
 void dispWAVheader(char filename[]){
 	FILE *fp;
 	WAVheader mh; // an instance of WAVheader struct
-	
+
 	// open the test.wav file for reading
 	fp = fopen(filename, "r");
 	if(fp == NULL){ // if fopen fails

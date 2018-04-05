@@ -30,6 +30,6 @@ void dispBar(int col, double dB){
 		printf("%c", '*');
 #else
 		printf("%s", BAR);
-#endif		
+#endif
 	}
 }
