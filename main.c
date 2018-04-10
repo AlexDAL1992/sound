@@ -12,9 +12,9 @@ int main(void){
 		if(WIFSIGNALED(ret) && (WTERMSIG(ret) == SIGINT)) break;
 		// display wav header
 		dispWAVheader("test.wav");
-		printf("\n");
 		// display wav strength as decibel value
 		dispWAVdata("test.wav");
+		printf("\n");
 		// break; // loop runs just once
 	}
 	return 0;
