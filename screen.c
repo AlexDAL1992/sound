@@ -30,8 +30,7 @@ void gotoxy(int row, int col){
 	Function definition of setColor()
 	This function uses VT100 escape sequence \ESC[1;colorm
 	to set color of the text at the current cursor position
-	Argument:	color code from 30 to 37
-			corresponding to black to white
+	Argument: color code from 30 to 37 (black to white)
 	Return: no
 */
 void setColor(int color){
@@ -46,6 +45,9 @@ void setColor(int color){
 	The value varies between 30 and 90,
 	so we need to render 3dB for one row
 	and 90dB will be displayed as bar of 30 rows.
+	Argument:	column number
+			signal in decibel
+	Return: no
 */
 void dispBar(int col, double dB){
 	int i;

@@ -4,6 +4,12 @@
 #include <stdio.h>
 #include <math.h>
 
+/*
+	Function definition of printID()
+	This function prints the ID of the sound file header.
+	Argument: sound file header ID
+	Return: no
+*/
 void printID(char id[]){
 	int i;
 	for(i = 0; i < 4; i++)
