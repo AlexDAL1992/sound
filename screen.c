@@ -50,12 +50,20 @@ void setColor(int color){
 	Return: no
 */
 void dispBar(int col, double dB){
-	int i;
+	int i; //counter initialization
 	for(i=0; i<dB/3; i++){
-		gotoxy(30-i, col+1);
+	// print one bar for each 3dB
+	// hence counter runs from 0 to dB/3
+		gotoxy(30-i, col+1); // go to the position required
+		if(i < 15) setColor(GREEN); // if db < 45dB, bar is green
+		else if(i >= 15 && i < 25) setColor(YELLOW); // if db >= 45dB and dB < 75dB, bar is yellow
+		else setColor(RED); // if dB >= 75dB, bar is red
+
 #ifndef UNICODE // if unicode is not enabled
+		// then print * as substitution for bar chart
 		printf("%c", '*');
 #else
+		// then print bar chart
 		printf("%s", BAR);
 #endif
 	}

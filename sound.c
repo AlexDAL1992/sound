@@ -17,7 +17,14 @@ void printID(char id[]){
 	printf("\n");
 }
 
-// function definition of dispWAVdata()
+/* 
+	function definition of dispWAVdata()
+	This function takes in the file name of the sound file,
+	analyzes the sound file and takes in its data
+	then shows it on the screen
+	Argument: sound file name
+	Return: no
+*/
 void dispWAVdata(char filename[]){
 	int i, j; // loop counters
 	FILE *fp; // file handler to open the file "test.wav"
@@ -25,36 +32,37 @@ void dispWAVdata(char filename[]){
 	short samples[SAMPLERATE]; // total 16000 samples in 1 second
 	WAVheader mh; // used to skip over the header of the wav file
 
-	fp = fopen(filename, "r");
-	if(fp == NULL){
+	fp = fopen(filename, "r"); // now open the file
+	if(fp == NULL){ // if the file opening encounters error
+		// print out the error and exit the program
 		printf("Error when opening the file.");
 		return;
 	}
-	fread(&mh, sizeof(mh), 1, fp);
-	fread(samples, sizeof(short), SAMPLERATE, fp);
-	fclose(fp);
+	fread(&mh, sizeof(mh), 1, fp); // take in the sound file header
+	fread(samples, sizeof(short), SAMPLERATE, fp); // take in the sound file data
+	fclose(fp); // close the file session
 
-	clearScreen();
-	for(i = 0; i < 80; i++){
-		for(j = 0, sum = 0.0; j < 200; j++){
+	clearScreen(); // empty the screen
+	for(i = 0; i < 80; i++){ // loop through 80 pieces of RMS values
+		for(j = 0, sum = 0.0; j < 200; j++){ // each 80 piece is run up to 200 samples
 			sum += samples[i*200+j]*samples[i*200+j];
 		}
-		rms[i] = sqrt(sum/200);
-#ifdef DEBUG
+		rms[i] = sqrt(sum/200); // calculate final RMS values and put in an array
+#ifdef DEBUG // debug mode, only display asterisk symbols as representation for sound signals
 		printf("rms[%d]: %10.4f, dB = %10.4f\n", i, rms[i], 20*log10(rms[i]));
-#else
+#else // if not debug mode, then display as bar charts
 		dispBar(i, 20*log10(rms[i]));
 #endif
 	}
 
-#ifdef COMM
+#ifdef COMM // send RMS data to server
 	sendToServer(rms);
 #endif
 }
 
 // function definition of dispWAVheader()
 void dispWAVheader(char filename[]){
-	FILE *fp;
+	FILE *fp; // create a file object
 	WAVheader mh; // an instance of WAVheader struct
 
 	// open the test.wav file for reading
@@ -63,8 +71,9 @@ void dispWAVheader(char filename[]){
 		printf("Error when opening the file.");
 		return; // function stops here
 	}
-	fread(&mh, sizeof(mh), 1, fp);
+	fread(&mh, sizeof(mh), 1, fp); // read the header of the sound file
 	fclose(fp); // close the opened file
+	// print out all the properties of the header file
 	printf("Chunk ID: ");
 	printID(mh.chunkID);
 	printf("Chunk size: %d\n", mh.chunkSize);
