@@ -25,7 +25,7 @@ List of contents
 	- MicroSD card containing the Shape Drawing project
 	- Internet connection, Ethernet cable recommended
 	- 5V DC USB power supply or equivalent
-  - Microphone with 3.5mm connector
+	- Microphone with 3.5mm connector
 
 	Software:
 	- Sound project
@@ -40,7 +40,7 @@ List of contents
 	- Turn on the Raspberry Pi device by connecting it to the power supply
 	- Watch the internet connection if successfully established
 	as the LAN LED on the Raspberry Pi blinks.
-  - Connect the microphone to the microphone jack
+	- Connect the microphone to the microphone jack
 
 
 
