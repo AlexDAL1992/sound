@@ -1,4 +1,5 @@
 -------------------------------Sound Program-----------------------------
+
 Sound project made by Duc Anh LE, 30th April.2018
 
 This project uses a Raspberry Pi 3 Mode B to host the project
@@ -61,7 +62,7 @@ List of contents
 	- C-language library files: comm.h, screen.h, sound.h,
 	- Information files: README.txt
 	- Compiling file: makefile
-  - Other file: sound.php
+	- Other file: sound.php
 
 
 
