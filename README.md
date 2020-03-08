@@ -1,5 +1,5 @@
 -------------------------------Sound Program-----------------------------
-Shape drawing project made by Duc Anh LE, 30th April.2018
+Sound project made by Duc Anh LE, 30th April.2018
 
 This project uses a Raspberry Pi 3 Mode B to host the project
 which allows users to record sound with a microphone and then
